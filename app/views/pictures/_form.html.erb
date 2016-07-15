@@ -1,0 +1,30 @@
+<%= form_for(picture, data: { remote: true }) do |f| %>
+  <% if picture.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(picture.errors.count, "error") %> prohibited this picture from being saved:</h2>
+
+      <ul>
+      <% picture.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :memo %>
+    <%= f.text_field :memo %>
+  </div>
+
+  <% unless picture.new_record? %>
+  <div class="field">
+    <%= f.label :thumb_created %>
+    <%= f.check_box :thumb_created %>
+  </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+    (Make sure that file is attached.)
+  </div>
+<% end %>

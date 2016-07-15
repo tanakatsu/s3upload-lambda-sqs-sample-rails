@@ -1,0 +1,36 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Pictures</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Memo</th>
+      <th>Original</th>
+      <th>ThumbL</th>
+      <th>ThumbS</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @pictures.each do |picture| %>
+      <tr>
+        <td><%= picture.memo %></td>
+        <td><%= image_tag(picture.s3_url, height: 100) %></td>
+        <td><%= image_tag(picture.s3_thumb_large_url, height: 75) if picture.thumb_created %></td>
+        <td><%= image_tag(picture.s3_thumb_small_url, height: 50) if picture.thumb_created %></td>
+        <!--
+        <td><%= link_to 'Show', picture %></td>
+        <td><%= link_to 'Edit', edit_picture_path(picture) %></td>
+        -->
+        <td><%= link_to 'Destroy', picture, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Picture', new_picture_path %>
+<%= link_to 'Check status', check_status_pictures_path %>

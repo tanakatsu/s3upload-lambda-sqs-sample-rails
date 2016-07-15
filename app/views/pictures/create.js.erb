@@ -1,0 +1,19 @@
+var json_str = '<%= raw S3UploadParam.new(@picture.s3_key, @redirect_url).to_json %>';
+var params = JSON.parse(json_str);
+console.log(json_str);
+
+$("#s3upload").attr("action", params["action_url"]);
+$("input[name=key]").val(params["key"]);
+$("input[name=AWSAccessKeyId]").val(params["aws_access_key_id"]);
+$("input[name=acl]").val(params["acl"]);
+$("input[name=success_action_redirect]").val(params["success_action_redirect"]);
+$("input[name=policy]").val(params["policy"]);
+$("input[name=signature]").val(params["signature"]);
+$("input[name=Content-Type]").val(params["content_type"]);
+
+$("#s3upload_parameters").text(json_str);
+$("#s3upload_parameters_field").show();
+
+setTimeout(function() {
+  $("#s3upload").submit();
+}, 1000);
