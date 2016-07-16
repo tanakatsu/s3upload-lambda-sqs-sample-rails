@@ -10,13 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160713195439) do
+ActiveRecord::Schema.define(version: 20160716020647) do
 
   create_table "pictures", force: :cascade do |t|
     t.string   "memo"
     t.boolean  "thumb_created"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.integer  "width"
+    t.integer  "height"
+    t.integer  "filesize"
   end
 
 end

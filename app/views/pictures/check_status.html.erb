@@ -2,6 +2,13 @@
 
 <p>You've got <%= @pictures.count %> new thumbnails.</p>
 
+<% if @processed_messages.present? %>
+<div>
+  Messages:
+  <p><%= @processed_messages.inspect %></p>
+</div>
+<% end %>
+
 <br>
 
 <%= link_to 'Back', pictures_path %>

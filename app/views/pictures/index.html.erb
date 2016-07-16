@@ -9,6 +9,9 @@
       <th>Original</th>
       <th>ThumbL</th>
       <th>ThumbS</th>
+      <th>Width</th>
+      <th>Height</th>
+      <th>Filesize</th>
       <th></th>
     </tr>
   </thead>
@@ -20,6 +23,9 @@
         <td><%= image_tag(picture.s3_url, height: 100) %></td>
         <td><%= image_tag(picture.s3_thumb_large_url, height: 75) if picture.thumb_created %></td>
         <td><%= image_tag(picture.s3_thumb_small_url, height: 50) if picture.thumb_created %></td>
+        <td><%= picture.width %></td>
+        <td><%= picture.height %></td>
+        <td><%= picture.filesize %></td>
         <!--
         <td><%= link_to 'Show', picture %></td>
         <td><%= link_to 'Edit', edit_picture_path(picture) %></td>

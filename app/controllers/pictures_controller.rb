@@ -68,18 +68,24 @@ class PicturesController < ApplicationController
     Rails.logger.debug("sqs messages=" + messages.inspect)
 
     @pictures = []
-    processed_messages = []
+    @processed_messages = []
 
     messages.each do |msg|
       msg.messages.each do |m|
         Rails.logger.debug("body=" + m.body)
         begin
           result = JSON.parse(m.body)
-          processed_messages.push(m) if result["env"] == Rails.env
+          @processed_messages.push(m) if result["env"] == Rails.env
           next unless result["status"] == "success"
 
           picture = Picture.find_by_id(result["id"])
-          @pictures.push(picture) if picture
+          if picture
+            picture.thumb_created = true
+            picture.width = result["image"]["width"]
+            picture.height = result["image"]["height"]
+            picture.filesize = result["image"]["filesize"]
+            @pictures.push(picture)
+          end
         rescue => e
           Rails.logger.error(e)
         end
@@ -87,12 +93,14 @@ class PicturesController < ApplicationController
     end
 
     # update statuses
-    Picture.where(id: @pictures.map(&:id)).update_all(thumb_created: true) if @pictures
+    @pictures.each do |picture|
+      picture.save
+    end
 
     # delete messages
-    if processed_messages.present?
-      SqsUtility.delete_messages(processed_messages)
-      Rails.logger.debug("delete #{processed_messages.count} messages")
+    if @processed_messages.present?
+      SqsUtility.delete_messages(@processed_messages)
+      Rails.logger.debug("delete #{@processed_messages.count} messages")
     end
   end
 
