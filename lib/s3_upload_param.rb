@@ -9,7 +9,7 @@ class S3UploadParam
     @acl = "public-read"
     @success_action_redirect = redirect_url
     @content_type ="image/jpeg"
-    @max_content_length = 1.megabyte
+    @max_content_length = 5.megabyte
     @policy = policy_document
     @signature = calc_signature
   end
