@@ -1,24 +1,45 @@
-# README
+# S3Upload-Lambda-SQS-sample
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### S3 bucket Configuration
 
-Things you may want to cover:
+###### CORS設定
+Properties > Permissions > Edit CORS Configuration
 
-* Ruby version
+```
+<CORSConfiguration>
+    <CORSRule>
+        <AllowedOrigin>*</AllowedOrigin>
+        <AllowedMethod>GET</AllowedMethod>
+        <AllowedMethod>POST</AllowedMethod>
+        <AllowedMethod>DELETE</AllowedMethod>
+        <MaxAgeSeconds>3000</MaxAgeSeconds>
+        <AllowedHeader>*</AllowedHeader>
+    </CORSRule>
+</CORSConfiguration>
+```
 
-* System dependencies
+###### Events設定
+Properties > Events
 
-* Configuration
+```
+Name: InvokeLambdaForDevelopment
+Events: Post
+Prefix: development/image_original/
+Suffix: .jpg
+SendTo: Lambda function
+Lambda function: CreateThumbsWithMessaging
+```
 
-* Database creation
+* Change values depending on your environment
+* You may have to create settings for each environment
 
-* Database initialization
+### Get started (development)
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+1. create S3 bucket
+1. edit S3 bucket CORS settings
+1. edit S3 bucket Events settings
+1. deploy Lambda function
+1. create SQS Queue
+1. edit env_sample.sh
+1. ```$ source env_sample.sh```
+1. ```$ rails s```
