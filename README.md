@@ -1,4 +1,4 @@
-# S3Upload-Lambda-SQS-sample
+# S3Upload-Lambda-SQS-sample (Rails)
 
 ### S3 bucket Configuration
 
@@ -43,3 +43,7 @@ Lambda function: CreateThumbsWithMessaging
 1. edit env_sample.sh
 1. ```$ source env_sample.sh```
 1. ```$ rails s```
+
+### Related project
+
+[https://github.com/tanakatsu/s3upload-lambda-sqs-sample-function](https://github.com/tanakatsu/s3upload-lambda-sqs-sample-function)
