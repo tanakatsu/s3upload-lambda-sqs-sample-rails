@@ -8,6 +8,7 @@ class S3UploadParam
     @action_url = "https://#{@bucket}.s3.amazonaws.com/"
     @acl = "public-read"
     @success_action_redirect = redirect_url
+    @success_action_status = 201.to_s
     @content_type ="image/jpeg"
     @max_content_length = 5.megabyte
     @policy = policy_document
@@ -21,6 +22,7 @@ class S3UploadParam
       aws_access_key_id: @aws_access_key_id,
       acl: @acl,
       success_action_redirect: @success_action_redirect,
+      success_action_status: @success_action_status,
       policy: @policy,
       signature: @signature,
       content_type: @content_type
@@ -35,6 +37,7 @@ class S3UploadParam
                     ["starts-with", "$key", ""],
                     { acl: @acl },
                     { success_action_redirect: @success_action_redirect.to_s },
+                    { success_action_status: @success_action_status },
                     ["starts-with", "$Content-Type", @content_type],
                     ["content-length-range", 0, @max_content_length]]
     }
