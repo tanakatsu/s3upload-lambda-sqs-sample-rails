@@ -1,13 +1,16 @@
 module API
   module V1
     class Pictures < Grape::API
+      include Grape::Kaminari
+
       resource :pictures do
+        paginate per_page: 5, max_per_page: 10
 
         # GET /api/v1/pictures
         desc 'Return all pictures.'
         get do
           @pictures = Picture.all
-          present @pictures, with: API::V1::PicturesEntity
+          present paginate(@pictures), with: API::V1::PicturesEntity
         end
 
         # GET /api/v1/pictures/{:id}

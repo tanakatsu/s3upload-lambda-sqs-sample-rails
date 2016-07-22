@@ -55,3 +55,4 @@ gem 'aws-sdk', '~> 2'
 gem "rails_12factor", group: :production # for Heroku
 gem 'grape'
 gem 'grape-entity'
+gem 'grape-kaminari'
