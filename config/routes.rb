@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  mount API::Root => '/'
+
   resources :pictures do
     collection do
       get :check_status
